@@ -7,13 +7,6 @@ use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\PesananController;
 
-Route::get('/', function () {
-    // Tampilkan halaman utama atau daftar user yang bisa dipilih sebagai role
-    return view('welcome');
-});
-
-Route::get('/dashboard/{iduser}', [MenuController::class, 'dashboard'])->name('dashboard');
-
 // Routing CRUD Menu
 Route::resource('menu', MenuController::class);
 
