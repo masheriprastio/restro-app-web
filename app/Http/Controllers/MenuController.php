@@ -8,8 +8,9 @@ use App\Models\Menu;
 
 class MenuController extends Controller
 {
-    public function index() {
-        $menus = Menu::all();
+    public function index()
+    {
+        $menus = Menu::latest()->paginate(5);
         return view('menu.index', compact('menus'));
     }
 

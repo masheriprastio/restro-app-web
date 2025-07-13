@@ -21,7 +21,7 @@
       <td>{{ $menu->Namamenu }}</td>
       <td>Rp{{ number_format($menu->Harga, 0, ',', '.') }}</td>
       <td>
-        <img src="{{ asset('storage/app/public/images/'.$menu->gambar) }}" alt="{{ $menu->Namamenu }}" width="100">
+        <img src="{{ asset('storage/images/'.$menu->gambar) }}" alt="{{ $menu->Namamenu }}" width="100">
       </td>
       <td>
         <a href="{{ route('menu.edit', $menu->idmenu) }}" class="btn btn-warning btn-sm">Edit</a>
