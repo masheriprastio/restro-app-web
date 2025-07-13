@@ -10,6 +10,7 @@
       <th>ID</th>
       <th>Nama Menu</th>
       <th>Harga</th>
+      <th>Gambar</th>
       <th>Aksi</th>
     </tr>
   </thead>
@@ -19,6 +20,11 @@
       <td>{{ $menu->idmenu }}</td>
       <td>{{ $menu->Namamenu }}</td>
       <td>Rp{{ number_format($menu->Harga, 0, ',', '.') }}</td>
+      <td>
+        @if($menu->gambar)
+            <img src="/images/{{ $menu->gambar }}" width="100px">
+        @endif
+      </td>
       <td>
         <a href="{{ route('menu.edit', $menu->idmenu) }}" class="btn btn-warning btn-sm">Edit</a>
         <form action="{{ route('menu.destroy', $menu->idmenu) }}" method="POST" class="d-inline">

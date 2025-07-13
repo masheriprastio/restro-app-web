@@ -4,7 +4,7 @@
 <div class="container">
   <h3>Edit Menu</h3>
 
-  <form action="{{ route('menu.update', $menu->idmenu) }}" method="POST">
+<form action="{{ route('menu.update', $menu->idmenu) }}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')
 
@@ -16,6 +16,14 @@
     <div class="mb-3">
       <label for="Harga" class="form-label">Harga</label>
       <input type="number" name="Harga" class="form-control" value="{{ $menu->Harga }}" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="gambar" class="form-label">Gambar</label>
+        <input type="file" name="gambar" class="form-control">
+        @if($menu->gambar)
+            <img src="/images/{{ $menu->gambar }}" width="100px">
+        @endif
     </div>
 
     <button type="submit" class="btn btn-success">Simpan Perubahan</button>
