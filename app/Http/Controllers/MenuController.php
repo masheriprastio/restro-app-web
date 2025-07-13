@@ -29,7 +29,7 @@ class MenuController extends Controller
         if ($image = $request->file('gambar')) {
             $destinationPath = 'public/images';
             $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
-            $image->storeAs($destinationPath, $profileImage);
+            $image->storeAs('images', $profileImage, 'public');
             $input['gambar'] = "$profileImage";
         }
 
@@ -56,7 +56,7 @@ class MenuController extends Controller
         if ($image = $request->file('gambar')) {
             $destinationPath = 'public/images';
             $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
-            $image->storeAs($destinationPath, $profileImage);
+            $image->storeAs('images', $profileImage, 'public');
             $input['gambar'] = "$profileImage";
         } else {
             unset($input['gambar']);
