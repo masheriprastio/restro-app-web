@@ -8,8 +8,9 @@ use App\Models\Menu;
 
 class MenuController extends Controller
 {
-    public function index() {
-        $menus = Menu::all();
+    public function index()
+    {
+        $menus = Menu::latest()->paginate(5);
         return view('menu.index', compact('menus'));
     }
 
@@ -29,7 +30,7 @@ class MenuController extends Controller
         if ($image = $request->file('gambar')) {
             $destinationPath = 'public/images';
             $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
-            $image->storeAs($destinationPath, $profileImage);
+            $image->storeAs('images', $profileImage, 'public');
             $input['gambar'] = "$profileImage";
         }
 
@@ -56,7 +57,7 @@ class MenuController extends Controller
         if ($image = $request->file('gambar')) {
             $destinationPath = 'public/images';
             $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
-            $image->storeAs($destinationPath, $profileImage);
+            $image->storeAs('images', $profileImage, 'public');
             $input['gambar'] = "$profileImage";
         } else {
             unset($input['gambar']);
