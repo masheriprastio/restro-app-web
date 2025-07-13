@@ -18,7 +18,23 @@ class MenuController extends Controller
     }
 
     public function store(Request $request) {
-        Menu::create($request->all());
+        $request->validate([
+            'Namamenu' => 'required',
+            'Harga' => 'required|numeric',
+            'gambar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $input = $request->all();
+
+        if ($image = $request->file('gambar')) {
+            $destinationPath = 'images/';
+            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $profileImage);
+            $input['gambar'] = "$profileImage";
+        }
+
+        Menu::create($input);
+
         return redirect()->route('menu.index')->with('success', 'Menu ditambahkan.');
     }
 
@@ -28,7 +44,26 @@ class MenuController extends Controller
     }
 
     public function update(Request $request, $id) {
-        Menu::findOrFail($id)->update($request->all());
+        $request->validate([
+            'Namamenu' => 'required',
+            'Harga' => 'required|numeric',
+            'gambar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $input = $request->all();
+        $menu = Menu::findOrFail($id);
+
+        if ($image = $request->file('gambar')) {
+            $destinationPath = 'images/';
+            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $profileImage);
+            $input['gambar'] = "$profileImage";
+        } else {
+            unset($input['gambar']);
+        }
+
+        $menu->update($input);
+
         return redirect()->route('menu.index')->with('success', 'Menu diupdate.');
     }
 
