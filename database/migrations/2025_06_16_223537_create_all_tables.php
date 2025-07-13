@@ -14,6 +14,7 @@ return new class extends Migration
             $table->id('idmenu');
             $table->char('Namamenu', 20);
             $table->integer('Harga');
+            $table->string('gambar')->nullable();
             $table->timestamps();
         });
 

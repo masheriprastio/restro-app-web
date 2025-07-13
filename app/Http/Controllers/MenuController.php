@@ -27,9 +27,9 @@ class MenuController extends Controller
         $input = $request->all();
 
         if ($image = $request->file('gambar')) {
-            $destinationPath = 'images/';
+            $destinationPath = 'public/images';
             $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
-            $image->move($destinationPath, $profileImage);
+            $image->storeAs($destinationPath, $profileImage);
             $input['gambar'] = "$profileImage";
         }
 
@@ -54,9 +54,9 @@ class MenuController extends Controller
         $menu = Menu::findOrFail($id);
 
         if ($image = $request->file('gambar')) {
-            $destinationPath = 'images/';
+            $destinationPath = 'public/images';
             $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
-            $image->move($destinationPath, $profileImage);
+            $image->storeAs($destinationPath, $profileImage);
             $input['gambar'] = "$profileImage";
         } else {
             unset($input['gambar']);
