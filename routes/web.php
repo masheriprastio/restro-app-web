@@ -7,7 +7,10 @@ use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\PesananController;
 use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Auth;
 
+
+Auth::routes();
 
 Route::get('/', [HomeController::class, 'index']);
 // Routing CRUD Menu
