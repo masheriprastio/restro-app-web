@@ -11,6 +11,7 @@ class MenuController extends Controller
     public function index() {
         $menus = Menu::all();
         return view('menu.index', compact('menus'));
+        // dd($menus);
     }
 
     public function create() {
@@ -18,13 +19,13 @@ class MenuController extends Controller
     }
 
     public function store(Request $request) {
-        $request->validate([
-            'Namamenu' => 'required',
-            'Harga' => 'required|numeric',
-            'gambar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
-
-        $input = $request->all();
+        try{
+            $validateData = $request->validate([
+                'Namamenu'=> 'required',
+                'Harga' => 'required|numeric',
+                'gambar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:5120',
+            ]);
+            $input = $request->all();
 
         if ($image = $request->file('gambar')) {
             $destinationPath = 'public/images';
@@ -35,7 +36,24 @@ class MenuController extends Controller
 
         Menu::create($input);
 
-        return redirect()->route('menu.index')->with('success', 'Menu ditambahkan.');
+        return redirect()->route('menu.index')->with('success', 'Menu berhasil ditambahkan');
+
+            
+        }catch (\Illuminate\Validation\ValidationException $e){
+            return redirect()->back()->withErrors($e->errors())->withInput();
+        }
+        // $request->validate([
+        //     'Namamenu' => 'required',
+        //     'Harga' => 'required|numeric',
+        //     'gambar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        // ]);
+
+        
+
+        // Menu::create($input);
+
+        // // return redirect()->route('menu.index')->with('success', 'Menu ditambahkan.');
+        // dd($request->all());
     }
 
     public function edit($id) {
